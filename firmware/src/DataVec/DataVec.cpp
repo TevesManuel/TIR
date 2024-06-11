@@ -1,0 +1,60 @@
+#include <DataVec/DataVec.hpp>
+
+template <typename T>
+DataVec<T>::DataVec()
+{
+    this->mainNode = new Node;
+    this->mainNode->data = nullptr;
+    this->mainNode->next = nullptr;
+}
+
+template <typename T>
+typename DataVec<T>::Node * DataVec<T>::createNode(T data)
+{
+    Node * newNode = new Node;
+    newNode->data = new T;
+    *newNode->data = data;
+    newNode->next = nullptr;
+    return newNode;
+}
+
+template <typename T>
+void DataVec<T>::add(T data)
+{
+    if(this->mainNode != nullptr)
+    {
+        if(this->mainNode->data == nullptr)
+        {
+            this->mainNode->data = new T;
+            *this->mainNode->data = data;
+        }
+        else
+        {
+            Node * next = this->mainNode;
+            while(next->next != nullptr)
+            {
+                next = next->next;
+            }
+            next->next = createNode(data);
+        }
+    }
+}
+
+#include <Arduino.h>
+
+template <typename T>
+void DataVec<T>::printAll()
+{
+    int i = 0;
+    Node * next = this->mainNode;
+    do {
+        Serial.print("[");
+        Serial.print(i);
+        Serial.print("]: ");
+        Serial.println(*next->time);
+        i++;
+        next = next->next;
+    
+    }
+    while(next != NULL);
+}
