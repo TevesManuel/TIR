@@ -8,11 +8,14 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/home/manuel_teves/TIR/firmware/include",
                 "/home/manuel_teves/TIR/firmware/src",
-                "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/VEGA_IRremote/src",
+                "/home/manuel_teves/TIR/firmware/lib/Snapshot/src",
+                "/home/manuel_teves/TIR/firmware/lib/DataVec/src",
+                "/home/manuel_teves/TIR/firmware/lib/StatusLed/src",
                 "/home/manuel_teves/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "/home/manuel_teves/.platformio/packages/framework-arduino-avr/variants/standard",
+                "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/Unity/src",
+                "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/VEGA_IRremote/src",
                 "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
@@ -23,11 +26,14 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/home/manuel_teves/TIR/firmware/include",
                     "/home/manuel_teves/TIR/firmware/src",
-                    "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/VEGA_IRremote/src",
+                    "/home/manuel_teves/TIR/firmware/lib/Snapshot/src",
+                    "/home/manuel_teves/TIR/firmware/lib/DataVec/src",
+                    "/home/manuel_teves/TIR/firmware/lib/StatusLed/src",
                     "/home/manuel_teves/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "/home/manuel_teves/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/Unity/src",
+                    "/home/manuel_teves/TIR/firmware/.pio/libdeps/uno/VEGA_IRremote/src",
                     "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "/home/manuel_teves/.platformio/packages/framework-arduino-avr/libraries/SPI/src",

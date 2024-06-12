@@ -1,38 +1,34 @@
 #include <Arduino.h>
-#include <StatusLed/StatusLed.hpp>
-#include <DataVec/DataVec.hpp>
+#include <StatusLed.hpp>
+#include <IrReader/IrReader.hpp>
 
-#define IR_SENSOR 8
+#define IR_SENSOR 2
+#define IR_SENSOR_INT_NUM 0
 #define IR_LED 13
 #define STATUS_LED 4
 
 StatusLed statusLed(STATUS_LED);
-
-unsigned long last_1 = 0;
+IrReader irReader;
 
 void setup()
 {
     Serial.begin(9600);
-    pinMode(IR_SENSOR, INPUT);
-    DataVec<int> registerOfSecuence;
-    registerOfSecuence.add(5);
-    // mainNode = Node::begin();
-    // Node::add(mainNode, 5);
-    // Node::add(mainNode, 6);
-    // Node::add(mainNode, 8);
-    // Node::add(mainNode, 7);
-    // Node::printAll(mainNode);
+    Serial.println("READING..");
+    irReader.begin(IR_SENSOR, IR_SENSOR_INT_NUM);
 }
 
 void loop()
 {
-    // if(digitalRead(IR_SENSOR))
+    Serial.println(irReader.getRecordedCode()->length);
+    // if(irReader.isDecoded())
     // {
-    //     while(micros() > last_1 + 1000)
-    //     {
-
-    //         last_1 = micros();
-    //     }
+    //     Serial.println("[i] An valid code has been readed.");
+    //     Serial.print("Length: ");
+    //     Serial.println(irReader.getRecordedCode()->length);
+    //     Serial.println("Code:");
+    //     statusLed.setFor(StatusLedMode::OK, 1000);
+    //     irReader.resume();
     // }
     // statusLed.update();
+    irReader.update();
 }

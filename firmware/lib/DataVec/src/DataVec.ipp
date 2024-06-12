@@ -1,11 +1,14 @@
-#include <DataVec/DataVec.hpp>
+#include <DataVec.hpp>
+#include <Arduino.h>
 
 template <typename T>
 DataVec<T>::DataVec()
 {
+    this->resetIter();
     this->mainNode = new Node;
     this->mainNode->data = nullptr;
     this->mainNode->next = nullptr;
+    this->lastNode = this->mainNode;
 }
 
 template <typename T>
@@ -36,11 +39,11 @@ void DataVec<T>::add(T data)
                 next = next->next;
             }
             next->next = createNode(data);
+            this->lastNode = next->next;
         }
+        this->length++;
     }
 }
-
-#include <Arduino.h>
 
 template <typename T>
 void DataVec<T>::printAll()
@@ -51,10 +54,50 @@ void DataVec<T>::printAll()
         Serial.print("[");
         Serial.print(i);
         Serial.print("]: ");
-        Serial.println(*next->time);
+        Serial.println(*next->data);
         i++;
         next = next->next;
-    
     }
     while(next != NULL);
+}
+
+
+template <typename T>
+T * DataVec<T>::iter(T*iteratorAdress)
+{
+    if(this->iterNode == NULL)
+    {
+        this->iterNode = this->mainNode;
+        *iteratorAdress = *this->iterNode->data;
+        return this->iterNode->data;
+    }
+    else
+    {
+        this->iterNode = this->iterNode->next;
+        *iteratorAdress = *this->iterNode->data;
+        return this->iterNode->data;
+    }
+}
+template <typename T>
+void DataVec<T>::resetIter()
+{
+    this->iterNode = NULL;
+}
+template <typename T>
+void DataVec<T>::clean()
+{
+    Node * next = this->mainNode;
+    do {        
+        Node * nextPtr = next->next;
+        delete next;
+        next = nextPtr;
+    }
+    while(next != NULL);
+    this->length = 0;
+}
+
+template <typename T>
+T * DataVec<T>::lastItem()
+{
+    return this->lastNode->data;
 }

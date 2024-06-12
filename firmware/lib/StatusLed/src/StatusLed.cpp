@@ -1,4 +1,4 @@
-#include <StatusLed/StatusLed.hpp>
+#include <StatusLed.hpp>
 #include <Arduino.h>
 
 #define STATUSLED_PULSETIME_PERCENT 0.50
