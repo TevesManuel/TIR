@@ -9,6 +9,7 @@ DataVec<T>::DataVec()
     this->mainNode->data = nullptr;
     this->mainNode->next = nullptr;
     this->lastNode = this->mainNode;
+    this->length = 0;
 }
 
 template <typename T>
@@ -45,6 +46,7 @@ void DataVec<T>::add(T data)
     }
 }
 
+
 template <typename T>
 void DataVec<T>::printAll()
 {
@@ -75,7 +77,7 @@ T * DataVec<T>::iter(T*iteratorAdress)
     {
         this->iterNode = this->iterNode->next;
         *iteratorAdress = *this->iterNode->data;
-        return this->iterNode->data;
+        return this->iterNode->data;    
     }
 }
 template <typename T>

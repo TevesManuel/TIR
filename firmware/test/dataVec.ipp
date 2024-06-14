@@ -1,7 +1,6 @@
 #include<unity.h>
 #include<DataVec.hpp>
 
-
 void testCorrectlySettingAndGetting()
 {
     DataVec<int> registerOfSecuence;
@@ -15,20 +14,13 @@ void testCorrectlySettingAndGetting()
     {
         total_sum += data_iter;
     }
+
+    Serial.println(registerOfSecuence.length);
+
     TEST_ASSERT_TRUE(total_sum == 26);
-}
+    Serial.println(registerOfSecuence.length);
 
-void setUp(void) {
-    // set stuff up here
-}
+    TEST_ASSERT_TRUE(registerOfSecuence.length == (u8)4);
 
-void tearDown(void) {
-    // clean stuff up here
-}
-
-int main( int argc, char **argv)
-{
-    UNITY_BEGIN();
-    RUN_TEST(testCorrectlySettingAndGetting);
-    UNITY_END();
+    TEST_ASSERT_TRUE(*registerOfSecuence.lastItem() == 7);
 }

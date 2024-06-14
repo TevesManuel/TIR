@@ -1,6 +1,7 @@
 #include<Snapshot.hpp>
+#include<Arduino.h>
 
-Snapshot::Snapshot(int pulseTime, unsigned long atTime)
+Snapshot::Snapshot(unsigned long pulseTime, unsigned long atTime)
 {
     this->pulseTime = pulseTime;
     this->atTime    = atTime;

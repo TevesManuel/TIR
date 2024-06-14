@@ -4,9 +4,9 @@
 class Snapshot
 {
     public:
-        int pulseTime;
+        unsigned long pulseTime;
         unsigned long atTime;
-        Snapshot(int pulseTime, unsigned long atTime);
+        Snapshot(unsigned long pulseTime, unsigned long atTime);
         Snapshot();
 };
 
