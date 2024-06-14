@@ -80,22 +80,34 @@ T * DataVec<T>::iter(T*iteratorAdress)
         return this->iterNode->data;    
     }
 }
+
 template <typename T>
 void DataVec<T>::resetIter()
 {
     this->iterNode = NULL;
 }
+
 template <typename T>
 void DataVec<T>::clean()
 {
-    Node * next = this->mainNode;
+    Node * next = this->mainNode;//Head address of last vec
+
+    this->mainNode = new Node;
+    this->mainNode->data = nullptr;
+    this->mainNode->next = nullptr;
+    this->lastNode = this->mainNode;
+    this->resetIter();
+    this->length = 0;
+
     do {        
-        Node * nextPtr = next->next;
-        delete next;
+        Node * nextPtr = next->next;//Next node address
+        delete next->data;// Liberate data memory
+        next->data = nullptr;
+        next->next = nullptr;
+        delete next;//Liberate next memory
         next = nextPtr;
     }
     while(next != NULL);
-    this->length = 0;
 }
 
 template <typename T>

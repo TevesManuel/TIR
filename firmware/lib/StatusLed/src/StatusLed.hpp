@@ -29,4 +29,6 @@ class StatusLed {
         void toogle();
 };
 
+#include <StatusLed.ipp>
+
 #endif

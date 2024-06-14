@@ -1,5 +1,8 @@
 #include <IrReader/IrReader.hpp>
 
+#define MAX_DURATION_PULSE 5000
+#define MIN_DURATION_PULSE 200
+
 IrReader* IrReader::instance = nullptr;
 
 IrReader::IrReader()
@@ -8,7 +11,7 @@ IrReader::IrReader()
     this->codeReaded = false;
 };
 
-void IrReader::begin(u8 pin, u8 intNumOfPin)
+void IrReader::begin(int pin, int intNumOfPin)
 {
     pinMode(pin, INPUT);
     attachInterrupt(intNumOfPin, this->handlePinChange, CHANGE);
@@ -20,18 +23,13 @@ void IrReader::handlePinChange()
     if( instance && !instance->isDecoded() )
     {
         unsigned long last_read = instance->recordedCode.lastItem()->atTime;
-        if(instance->recordedCode.lastItem() == nullptr)
+        bool firstRead = instance->recordedCode.lastItem() == nullptr;
+        if(firstRead)
         {
             last_read = 0;
         }
         unsigned long durationPulse = now - last_read;
-        Serial.println(instance->recordedCode.lastItem() == nullptr);
-        Serial.println(now);
-        Serial.println(last_read);
-        Serial.println(durationPulse);
-        // Serial.println(now - instance->recordedCode.lastItem()->atTime);
-        // Serial.println(durationPulse);
-        if( durationPulse >= 200 && durationPulse <= 3000 )
+        if( ( durationPulse >= MIN_DURATION_PULSE && durationPulse <= MAX_DURATION_PULSE ) || firstRead)
         {
             instance->recordedCode.add(Snapshot(durationPulse, now));
         }
@@ -40,7 +38,7 @@ void IrReader::handlePinChange()
 
 void IrReader::update()
 {
-    // if( (micros() - this->recordedCode.lastItem()->atTime) > 100000 && this->recordedCode.length > 1 && !this->codeReaded)
+    // if( (micros() - this->recordedCode.lastItem()->atTime) > MAX_DURATION_PULSE && this->recordedCode.length > 1 && !this->codeReaded)
     // {
     //     Serial.print("Last lecture: ");
     //     Serial.println(micros() - this->recordedCode.lastItem()->atTime);

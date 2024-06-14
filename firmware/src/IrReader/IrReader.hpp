@@ -3,7 +3,6 @@
 
 #include <DataVec.hpp>
 
-#include <USBAPI.h>
 #include <Arduino.h>
 
 #include <DataVec.hpp>
@@ -18,7 +17,7 @@ class IrReader
         bool codeReaded;
     public:
         IrReader();
-        void begin(u8 irPin, u8 intNumOfPin);
+        void begin(int irPin, int intNumOfPin);
         void resume();
         bool isDecoded();
         void update();
