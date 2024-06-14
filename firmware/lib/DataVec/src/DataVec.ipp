@@ -1,5 +1,4 @@
 #include <DataVec.hpp>
-#include <Arduino.h>
 
 template <typename T>
 DataVec<T>::DataVec()
@@ -45,24 +44,6 @@ void DataVec<T>::add(T data)
         this->length++;
     }
 }
-
-
-template <typename T>
-void DataVec<T>::printAll()
-{
-    int i = 0;
-    Node * next = this->mainNode;
-    do {
-        Serial.print("[");
-        Serial.print(i);
-        Serial.print("]: ");
-        Serial.println(*next->data);
-        i++;
-        next = next->next;
-    }
-    while(next != NULL);
-}
-
 
 template <typename T>
 T * DataVec<T>::iter(T*iteratorAdress)

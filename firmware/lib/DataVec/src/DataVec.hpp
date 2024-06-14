@@ -1,8 +1,6 @@
 #ifndef DATAVEC_HPP
 #define DATAVEC_HPP
 
-#include<USBAPI.h>
-
 template <typename T>
 class DataVec {
     private:
@@ -15,7 +13,7 @@ class DataVec {
         Node * iterNode;
         Node * lastNode;
     public:
-        u8 length;
+        int length;
         DataVec();
         void add(T);
         void printAll();

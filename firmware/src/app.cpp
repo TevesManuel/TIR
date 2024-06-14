@@ -4,7 +4,7 @@
 
 #define IR_SENSOR 2
 #define IR_SENSOR_INT_NUM 0
-#define IR_LED 7
+#define IR_LED 6
 #define STATUS_LED 13
 
 StatusLed statusLed(STATUS_LED);
@@ -29,8 +29,10 @@ void logInfo()
     Serial.println("CODE:");
     Snapshot * snapshot = new Snapshot;
     int i = 1;
+    int total = 0;
     while(irReader.getRecordedCode()->iter(snapshot))
     {
+        total = total + snapshot->pulseTime;
         Serial.print(snapshot->pulseTime);
         Serial.print(" ");
         if(i % 4 == 0)
@@ -39,6 +41,8 @@ void logInfo()
         }
         i++;
     }
+    Serial.print("Total time: ");
+    Serial.println(total);
 }
 
 void loop()

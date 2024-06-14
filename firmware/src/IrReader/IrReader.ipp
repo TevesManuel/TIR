@@ -1,4 +1,5 @@
 #include <IrReader/IrReader.hpp>
+#include <Arduino.h>
 
 #define MAX_DURATION_PULSE 5000
 #define MIN_DURATION_PULSE 200

@@ -2,10 +2,6 @@
 #define IRREADER_HPP
 
 #include <DataVec.hpp>
-
-#include <Arduino.h>
-
-#include <DataVec.hpp>
 #include <Snapshot.hpp>
 
 class IrReader

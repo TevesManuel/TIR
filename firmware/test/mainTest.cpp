@@ -1,8 +1,5 @@
 #include<unity.h>
 
-#include "./dataVec.ipp"
-#include "./timeRegistration.ipp"
-
 #include <Arduino.h>
 
 #include <Snapshot.hpp>
@@ -83,7 +80,5 @@ int main( int argc, char **argv)
 {
     UNITY_BEGIN();
     RUN_TEST(testFullAllocation);
-    // RUN_TEST(testCorrectlySettingAndGetting);
-    // RUN_TEST(testCorrectlySettingAndGettingTime);
     UNITY_END();
 }
