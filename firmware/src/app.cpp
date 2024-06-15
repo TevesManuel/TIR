@@ -29,10 +29,16 @@ void logInfo()
     Serial.println("CODE:");
     Snapshot * snapshot = new Snapshot;
     int i = 1;
-    int total = 0;
+    unsigned int total = 0;
     while(irReader.getRecordedCode()->iter(snapshot))
     {
         total = total + snapshot->pulseTime;
+        // Serial.print("Pulse time: ");
+        // Serial.print(snapshot->pulseTime);
+        // Serial.println("us");
+        // Serial.print("TOTAL TIME: ");
+        // Serial.print(total);
+        // Serial.println("us");
         Serial.print(snapshot->pulseTime);
         Serial.print(" ");
         if(i % 4 == 0)
@@ -41,6 +47,8 @@ void logInfo()
         }
         i++;
     }
+    irReader.getRecordedCode()->resetIter();
+
     Serial.print("Total time: ");
     Serial.println(total);
 }
@@ -60,11 +68,11 @@ void loop()
         {
             logInfo();
         }
-        else if( op == 'O' )
-        {
-            Serial.println("irReader is cleaned.");
-            irReader.resume();
-        }
+    //     else if( op == 'O' )
+    //     {
+    //         irReader.resume();
+    //         Serial.println("irReader is cleaned.");
+    //     }
         Serial.println("\n----------------------------------------");
         Serial.println("");
     }

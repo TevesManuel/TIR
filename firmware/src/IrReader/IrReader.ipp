@@ -23,16 +23,18 @@ void IrReader::handlePinChange()
     unsigned long now = micros();
     if( instance && !instance->isDecoded() )
     {
-        unsigned long last_read = instance->recordedCode.lastItem()->atTime;
-        bool firstRead = instance->recordedCode.lastItem() == nullptr;
-        if(firstRead)
+        if(instance->recordedCode.lastItem() == nullptr)
         {
-            last_read = 0;
+            instance->recordedCode.add(Snapshot(0, now));
         }
-        unsigned long durationPulse = now - last_read;
-        if( ( durationPulse >= MIN_DURATION_PULSE && durationPulse <= MAX_DURATION_PULSE ) || firstRead)
+        else
         {
-            instance->recordedCode.add(Snapshot(durationPulse, now));
+            unsigned long last_read = instance->recordedCode.lastItem()->atTime;
+            unsigned long durationPulse = now - last_read;
+            if( ( durationPulse >= MIN_DURATION_PULSE && durationPulse <= MAX_DURATION_PULSE ) )
+            {
+                instance->recordedCode.add(Snapshot(durationPulse, now));
+            }
         }
     }
 }
