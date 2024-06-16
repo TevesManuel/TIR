@@ -1,5 +1,6 @@
 #include <IrReader/IrReader.hpp>
 #include <Arduino.h>
+#include <utils/utils.hpp>
 
 #define MAX_DURATION_PULSE 5000
 #define MIN_DURATION_PULSE 200
@@ -41,15 +42,10 @@ void IrReader::handlePinChange()
 
 void IrReader::update()
 {
-    // if( (micros() - this->recordedCode.lastItem()->atTime) > MAX_DURATION_PULSE && this->recordedCode.length > 1 && !this->codeReaded)
-    // {
-    //     Serial.print("Last lecture: ");
-    //     Serial.println(micros() - this->recordedCode.lastItem()->atTime);
-    //     Serial.println( (micros() - this->recordedCode.lastItem()->atTime) > 3000 );
-    //     Serial.println(micros());
-    //     Serial.println(this->recordedCode.lastItem()->atTime);
-    //     this->codeReaded = true;
-    // }
+    if( TUtils::elapsed(this->recordedCode.lastItem()->atTime) > MAX_DURATION_PULSE && this->recordedCode.length > 1 && !this->codeReaded)
+    {
+        this->codeReaded = true;
+    }
 }
 
 void IrReader::resume()

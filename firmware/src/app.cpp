@@ -27,6 +27,7 @@ void logInfo()
     Serial.print("\tLength: ");
     Serial.println(irReader.getRecordedCode()->length);
     Serial.println("CODE:");
+    Serial.print("\t");
     Snapshot * snapshot = new Snapshot;
     int i = 1;
     unsigned int total = 0;
@@ -43,7 +44,7 @@ void logInfo()
         Serial.print(" ");
         if(i % 4 == 0)
         {
-            Serial.println("");
+            Serial.print("\n\t");
         }
         i++;
     }
@@ -53,38 +54,49 @@ void logInfo()
     Serial.println(total);
 }
 
-void loop()
+#include <utils/utils.hpp>
+
+unsigned long lastSerialInput = 0;
+
+void serialController()
 {
     if(Serial.available())
     {
-        Serial.println("");
-        Serial.print("(");
-        Serial.print(micros());
-        Serial.println("us)");
-        Serial.println("[i]");
-        Serial.println("----------------------------------------");
         char op = (char)toupper(Serial.read());
-        if( op == 'I' )
+        if(TUtils::elapsed(lastSerialInput) > 1000000)
         {
-            logInfo();
+            lastSerialInput = micros();
+            Serial.println("");
+            Serial.print("(");
+            Serial.print(micros());
+            Serial.println("us)");
+            Serial.println("[i]");
+            Serial.println("----------------------------------------");
+            if( op == 'I' )
+            {
+                logInfo();
+            }
+        //     else if( op == 'O' )
+        //     {
+        //         irReader.resume();
+        //         Serial.println("irReader is cleaned.");
+        //     }
+            Serial.println("\n----------------------------------------");
+            Serial.println("");
+        
         }
-    //     else if( op == 'O' )
-    //     {
-    //         irReader.resume();
-    //         Serial.println("irReader is cleaned.");
-    //     }
-        Serial.println("\n----------------------------------------");
-        Serial.println("");
     }
-//     // if(irReader.isDecoded())
-//     // {
-//     // //     Serial.println("[i] An valid code has been readed.");
-//     // //     Serial.print("Length: ");
-//     // //     Serial.println(irReader.getRecordedCode()->length);
-//     // //     Serial.println("Code:");
-//     // //     statusLed.setFor(StatusLedMode::OK, 1000);
-//     // //     irReader.resume();
-//     // }
+}
+
+void loop()
+{
+    if(irReader.isDecoded())
+    {
+        logInfo();
+        irReader.resume();
+    }
+
+    // serialController();
     statusLed.update();
     irReader.update();
 }
