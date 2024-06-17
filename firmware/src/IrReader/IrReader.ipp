@@ -22,19 +22,20 @@ void IrReader::begin(int pin, int intNumOfPin)
 void IrReader::handlePinChange()
 {
     unsigned long now = micros();
-    if( instance && !instance->isDecoded() )
+    if( instance != nullptr && !instance->isDecoded() )
     {
-        if(instance->recordedCode.lastItem() == nullptr)
+        Snapshot * lastItem = instance->recordedCode.lastItem();
+        if( lastItem == nullptr)
         {
             instance->recordedCode.add(Snapshot(0, now));
         }
         else
         {
-            unsigned long last_read = instance->recordedCode.lastItem()->atTime;
-            unsigned long durationPulse = now - last_read;
-            if( ( durationPulse >= MIN_DURATION_PULSE && durationPulse <= MAX_DURATION_PULSE ) )
+            unsigned long lastRead = lastItem->atTime;
+            unsigned long durationPulse = TUtils::elapsedTime(lastRead, now);
+            if( between( durationPulse, MIN_DURATION_PULSE, MAX_DURATION_PULSE ) )
             {
-                instance->recordedCode.add(Snapshot(durationPulse, now));
+                // instance->recordedCode.add(Snapshot(durationPulse, now));
             }
         }
     }
