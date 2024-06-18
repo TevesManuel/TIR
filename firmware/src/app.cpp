@@ -23,7 +23,7 @@ void loop()
     if(irReader.isDecoded())
     {
         serialController.logInfo();
-        irReader.resume();
+        // irReader.resume();
     }
 
     serialController.update();

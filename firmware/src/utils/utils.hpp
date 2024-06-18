@@ -3,7 +3,6 @@
 
 #define between(value, min, max) (value >= min && value <= max)
 
-
 namespace TUtils
 {
     template <typename T>

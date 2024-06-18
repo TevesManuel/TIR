@@ -35,7 +35,7 @@ void IrReader::handlePinChange()
             unsigned long durationPulse = TUtils::elapsedTime(lastRead, now);
             if( between( durationPulse, MIN_DURATION_PULSE, MAX_DURATION_PULSE ) )
             {
-                // instance->recordedCode.add(Snapshot(durationPulse, now));
+                instance->recordedCode.add(Snapshot(durationPulse, now));
             }
         }
     }

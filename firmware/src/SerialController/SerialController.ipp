@@ -33,15 +33,9 @@ void SerialController::logInfo()
         Snapshot * snapshot = new Snapshot;
         int i = 1;
         unsigned int total = 0;
-        while(this->irReaderRef->getRecordedCode()->iter(snapshot))
+        while(this->irReaderRef->getRecordedCode()->iter(snapshot) != nullptr)
         {
             total = total + snapshot->pulseTime;
-            // Serial.print("Pulse time: ");
-            // Serial.print(snapshot->pulseTime);
-            // Serial.println("us");
-            // Serial.print("TOTAL TIME: ");
-            // Serial.print(total);
-            // Serial.println("us");
             Serial.print(snapshot->pulseTime);
             Serial.print(" ");
             if(i % 4 == 0)
@@ -50,7 +44,6 @@ void SerialController::logInfo()
             }
             i++;
         }
-        this->irReaderRef->getRecordedCode()->resetIter();
 
         Serial.print("\nTotal time: ");
         Serial.println(total);

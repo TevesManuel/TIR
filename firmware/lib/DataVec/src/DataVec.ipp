@@ -33,13 +33,8 @@ void DataVec<T>::add(T data)
         }
         else
         {
-            Node * next = this->mainNode;
-            while(next->next != nullptr)
-            {
-                next = next->next;
-            }
-            next->next = createNode(data);
-            this->lastNode = next->next;
+            this->lastNode->next = createNode(data);
+            this->lastNode = this->lastNode->next;
         }
         this->length++;
     }
@@ -48,30 +43,44 @@ void DataVec<T>::add(T data)
 template <typename T>
 T * DataVec<T>::iter(T*iteratorAdress)
 {
-    if(this->iterNode == NULL)
+    if(this->iterNode == nullptr)
     {
         this->iterNode = this->mainNode;
-        *iteratorAdress = *this->iterNode->data;
-        return this->iterNode->data;
     }
     else
     {
         this->iterNode = this->iterNode->next;
-        *iteratorAdress = *this->iterNode->data;
-        return this->iterNode->data;    
+        if(this->iterNode == nullptr)
+        {
+            this->resetIter();
+            return nullptr;
+        }
     }
+    *iteratorAdress = *this->iterNode->data;
+    return this->iterNode->data;
 }
 
 template <typename T>
 void DataVec<T>::resetIter()
 {
-    this->iterNode = NULL;
+    this->iterNode = nullptr;
 }
 
 template <typename T>
 void DataVec<T>::clean()
 {
     Node * next = this->mainNode;//Head address of last vec
+    while (next != nullptr)
+    {
+        Node* nextPtr = next->next;
+        if (next->data != nullptr)
+        {
+            delete next->data;
+            next->data = nullptr;
+        }
+        delete next;
+        next = nextPtr;
+    }
 
     this->mainNode = new Node;
     this->mainNode->data = nullptr;
@@ -79,16 +88,6 @@ void DataVec<T>::clean()
     this->lastNode = this->mainNode;
     this->resetIter();
     this->length = 0;
-
-    do {        
-        Node * nextPtr = next->next;//Next node address
-        delete next->data;// Liberate data memory
-        next->data = nullptr;
-        next->next = nullptr;
-        delete next;//Liberate next memory
-        next = nextPtr;
-    }
-    while(next != NULL);
 }
 
 template <typename T>
